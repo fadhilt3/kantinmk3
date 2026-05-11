@@ -3,9 +3,45 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\AuthController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+|--------------------------------------------------------------------------
+| API Routes - Aplikasi Kantin
+|--------------------------------------------------------------------------
+|
+| Di sini adalah tempat mendaftarkan route API untuk aplikasi kamu.
+| Ingat: Semua route di sini otomatis memiliki prefix "/api".
+|
+*/
+
+// --- 1. AKSES PUBLIK (Tanpa Login) ---
+// Gunakan POST di Postman/Android untuk mengakses ini
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+// --- 2. AKSES PRIVATE (Harus Login / Pakai Token Sanctum) ---
+Route::middleware('auth:sanctum')->group(function () {
+    
+    // Ambil data profil user yang sedang login
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Ambil daftar menu makanan kantin
+    Route::get('/menu', [MenuController::class, 'index']);
+
+    // Logout dari aplikasi
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
 });
 
-Route::get('/menu', [MenuController::class, 'index']);
+// --- 3. FALLBACK (Opsional) ---
+// Supaya kalau kamu buka /api/register di browser (GET), tidak muncul error merah
+Route::get('/register', function () {
+    return response()->json([
+        'success' => false,
+        'message' => 'Metode tidak didukung. Silakan gunakan POST melalui Postman atau aplikasi Android.'
+    ], 405);
+});
