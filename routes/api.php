@@ -35,6 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Logout dari aplikasi
     Route::post('/logout', [AuthController::class, 'logout']);
     
+    // Order
+    Route::post('/order', [App\Http\Controllers\Api\OrderController::class, 'store']);
+    Route::get('/order', [App\Http\Controllers\Api\OrderController::class, 'index']);
+
 });
 
 // --- 3. FALLBACK (Opsional) ---
