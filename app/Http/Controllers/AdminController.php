@@ -67,4 +67,11 @@ class AdminController extends Controller
         $orders = \App\Models\Order::with('items.menu', 'user')->latest()->get();
         return view('admin.order.index', compact('orders'));
     }
+
+    // Tampilkan semua payment
+    public function payments()
+    {
+        $payments = \App\Models\Payment::with('order.items.menu', 'order.user')->latest()->get();
+        return view('admin.payment.index', compact('payments'));
+    }
 }

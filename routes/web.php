@@ -11,6 +11,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/menu/{id}', [AdminController::class, 'update'])->name('admin.menu.update');
     Route::delete('/menu/{id}', [AdminController::class, 'destroy'])->name('admin.menu.destroy');
     Route::get('/order', [AdminController::class, 'orders'])->name('admin.order.index');
+    Route::get('/payment', [AdminController::class, 'payments'])->name('admin.payment.index');
 });
 
 Route::get('/', function () {

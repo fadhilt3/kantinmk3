@@ -39,6 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/order', [App\Http\Controllers\Api\OrderController::class, 'store']);
     Route::get('/order', [App\Http\Controllers\Api\OrderController::class, 'index']);
 
+    // Payment
+    Route::post('/payment', [App\Http\Controllers\Api\PaymentController::class, 'store']);
+    Route::get('/payment', [App\Http\Controllers\Api\PaymentController::class, 'index']);
+
 });
 
 // --- 3. FALLBACK (Opsional) ---
