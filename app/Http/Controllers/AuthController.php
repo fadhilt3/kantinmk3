@@ -11,20 +11,27 @@ class AuthController extends Controller
 {
     // 1. FUNGSI REGISTER
     public function register(Request $request) {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        return response()->json(['message' => 'Berhasil Daftar!', 'data' => $user]);
-    }
+    $token = $user->createToken('auth_token')->plainTextToken;
+
+    return response()->json([
+        'message' => 'Berhasil Daftar!',
+        'access_token' => $token,
+        'token_type' => 'Bearer',
+        'user' => $user
+    ]);
+}
 
     // 2. FUNGSI LOGIN (Cukup SATU saja yang ini)
     public function login(Request $request) 
