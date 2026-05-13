@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,8 @@ Route::get('/register', function () {
         'message' => 'Metode tidak didukung. Silakan gunakan POST melalui Postman atau aplikasi Android.'
     ], 405);
 });
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/categories', [CategoryController::class, 'store']);
+Route::put('/categories/{id}', [CategoryController::class, 'update']);
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
