@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Order;
+use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +14,18 @@ class AdminController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('admin.menu.index', compact('menus'));
+        $totalUser = User::count();
+        $totalMenu = Menu::count();
+        $totalOrder = Order::count();
+        $totalPendapatan = Payment::where('status', 'paid')->sum('jumlah_bayar');
+
+        return view('admin.menu.index', compact(
+            'menus',
+            'totalUser',
+            'totalMenu',
+            'totalOrder',
+            'totalPendapatan'
+        ));
     }
 
     // Form tambah menu
@@ -60,7 +74,7 @@ class AdminController extends Controller
         Menu::findOrFail($id)->delete();
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil dihapus!');
     }
-    
+
     // Tampilkan semua order
     public function orders()
     {
