@@ -35,6 +35,19 @@
                         <label class="form-label fw-bold">Stok</label>
                         <input type="number" name="stok" class="form-control" value="{{ $menu->stok }}">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Kategori</label>
+                        <select name="kategori" class="form-control">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Nasi" {{ $menu->kategori == 'Nasi' ? 'selected' : '' }}>Nasi</option>
+                            <option value="Mie" {{ $menu->kategori == 'Mie' ? 'selected' : '' }}>Mie</option>
+                            <option value="Kuah" {{ $menu->kategori == 'Kuah' ? 'selected' : '' }}>Kuah</option>
+                            <option value="Lauk" {{ $menu->kategori == 'Lauk' ? 'selected' : '' }}>Lauk</option>
+                            <option value="Sayur" {{ $menu->kategori == 'Sayur' ? 'selected' : '' }}>Sayur</option>
+                            <option value="Minuman" {{ $menu->kategori == 'Minuman' ? 'selected' : '' }}>Minuman</option>
+                            <option value="Snack" {{ $menu->kategori == 'Snack' ? 'selected' : '' }}>Snack</option>
+                        </select>
+                    </div>
                     <div class="d-flex gap-2">
                         <a href="{{ route('admin.menu.index') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Batal
