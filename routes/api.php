@@ -19,6 +19,8 @@ use App\Http\Controllers\AuthController;
 // Gunakan POST di Postman/Android untuk mengakses ini
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+// Ambil daftar menu makanan kantin
+    Route::get('/menu', [MenuController::class, 'index']);
 
 
 // --- 2. AKSES PRIVATE (Harus Login / Pakai Token Sanctum) ---
@@ -28,9 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
-    // Ambil daftar menu makanan kantin
-    Route::get('/menu', [MenuController::class, 'index']);
 
     // Logout dari aplikasi
     Route::post('/logout', [AuthController::class, 'logout']);
