@@ -33,7 +33,7 @@ class AuthController extends Controller
     ]);
 }
 
-    // 2. FUNGSI LOGIN (Cukup SATU saja yang ini)
+    // 2. FUNGSI LOGIN 
     public function login(Request $request) 
     {
         $request->validate([
@@ -59,8 +59,13 @@ class AuthController extends Controller
     }
 
     // 3. FUNGSI LOGOUT
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Berhasil Logout!']);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout berhasil'
+        ]);
     }
 }
