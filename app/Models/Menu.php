@@ -12,6 +12,7 @@ class Menu extends Model
         'nama_menu',
         'harga',
         'stok',
-        'kategori'
+        'kategori',
+        'foto',
     ];
 }
