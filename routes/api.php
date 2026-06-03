@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\Api\FavoriteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes - Aplikasi Kantin
@@ -42,6 +42,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payment
     Route::post('/payment', [App\Http\Controllers\Api\PaymentController::class, 'store']);
     Route::get('/payment', [App\Http\Controllers\Api\PaymentController::class, 'index']);
+
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/favorites/{menuId}', [FavoriteController::class, 'toggle']);
+    Route::get('/favorites/{menuId}/check', [FavoriteController::class, 'check']);
 
 });
 
